@@ -1,0 +1,39 @@
+version: '3.0'
+services:
+  app:
+    ports:
+      - "3000:80"
+    volumes:
+      - ./src:/var/www/html/
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+        - db
+  
+  db:
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+       MYSQL_ROOT_PASSWORD: root
+       MYSQL_USER: admin
+       MYSQL_PASSWORD: admin
+       MYSQL_DATABASE: my-db
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 4000:80
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: my-db
+      PMA_HOST: db
+    depends_on:
+        - db
+     
+
+# sudo docker exec -it mysql mysql -uroot -p

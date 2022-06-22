@@ -1,0 +1,17 @@
+{
+    "name": "my/app",
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "php-di/php-di": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "MyApp\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alexis"
+        }
+    ]
+}
