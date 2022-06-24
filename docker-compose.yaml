@@ -10,9 +10,18 @@ services:
       dockerfile: Dockerfile
     depends_on:
         - db
+
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:mysql://db:3306/my-db -user=admin -password=admin -connectRetries=60 migrate
+    volumes:
+      - ./flyway/sql:/flyway/sql
+      - ./flyway/conf:/flyway/conf
+    depends_on:
+      - db
   
   db:
-    image: mysql:5.7
+    image: mysql
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
