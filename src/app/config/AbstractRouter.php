@@ -2,12 +2,16 @@
 
 namespace MyApp\Config;
 
+use DI\Container;
+
 abstract class AbstractRouter
 {
     private $routes = [];
+    private $container;
 
-    public function __construct()
+    public function __construct(Container $container)
     {
+        $this->container = $container;
         $this->getRoutes();
     }
 
@@ -29,7 +33,8 @@ abstract class AbstractRouter
         $controllerClass = $this->routes[$path]['controller'];
         $methodName = $this->routes[$path]['method'];
 
-        $controller = new $controllerClass;
+        //$controller = new $controllerClass;
+        $controller = $this->container->get($controllerClass);
         $controller->$methodName();
     }
 

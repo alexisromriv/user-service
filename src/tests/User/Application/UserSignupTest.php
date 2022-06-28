@@ -9,6 +9,6 @@ class UserSignupTest extends TestCase
     public function testMyTest(): void
     {
         $service = new UserSignup();
-        self::assertEquals($service->sum(1,1), 2);
+        self::assertEquals($service->sum(1,0), 2);
     }
 }
