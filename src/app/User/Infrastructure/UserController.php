@@ -2,21 +2,18 @@
 
 namespace MyApp\User\Infrastructure;
 
-use Monolog\Logger;
+use MyApp\Shared\Application\Logging;
 
 class UserController
 {
     private $logger;
 
-    public function __construct(Logger $logger) {
+    public function __construct(Logging $logger) {
         $this->logger = $logger;
     }
     public function login()
     {
         // add records to the log
-        $this->logger->warning('Foo', ['asd', 'asd2']);
-
-
-        die('logued in');
+        $this->logger->log('Logued in');
     }
 }
