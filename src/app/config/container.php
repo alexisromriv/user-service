@@ -1,11 +1,15 @@
 <?php
 
+use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use MyApp\User\Infrastructure\UserController;
 
-use function DI\create;
+
+$logger = new Logger('name');
+$logger->pushHandler(new StreamHandler('logs/application.log', Logger::INFO));
+
 
 return [
-    Logger::class => create(Logger::class),
-    UserController::class => create(UserController::class)
+    Logger::class => $logger,
+    UserController::class => new UserController($logger)
 ];

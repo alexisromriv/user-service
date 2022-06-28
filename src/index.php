@@ -11,22 +11,9 @@ use MyApp\User\Infrastructure\UserController;
 	die($ex->getMessage());
 }); */
 
-//Logger
-// create a log channel
-$log = new Logger('name');
-$log->pushHandler(new StreamHandler('logs/application.log', Logger::INFO));
-
-
-
-
 
 $builder = new DI\ContainerBuilder();
-//$builder->addDefinitions('app/config/container.php');
-$builder->addDefinitions(
-	[
-		UserController::class => new UserController($log)
-	]
-);
+$builder->addDefinitions('app/config/container.php');
 $container = $builder->build();
 
 
