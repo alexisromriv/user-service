@@ -3,11 +3,16 @@
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use MyApp\Shared\Application\Logging;
+use MyApp\User\Domain\Contracts\UserRepositoryContract;
+use MyApp\User\Infrastructure\UserRepository;
+
+use function DI\create;
 
 $logger = new Logger('name');
 $logger->pushHandler(new StreamHandler('logs/application.log', Logger::INFO));
 
 
 return [
-    Logging::class => new Logging($logger)
+    Logging::class => new Logging($logger),
+    UserRepositoryContract::class => create(UserRepository::class)
 ];

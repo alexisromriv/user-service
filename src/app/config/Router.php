@@ -9,6 +9,7 @@ class Router extends AbstractRouter
     public function getRoutes()
     {
         $this->get('api/v1/users/signup', UserController::class, 'login');
+        $this->get('api/v1/users', UserController::class, 'getAll');
     }
 
 }
