@@ -22,8 +22,10 @@ abstract class AbstractRouter
             'POST' => $_POST,
         ];
         
-        $path =  $requestMethods[$_SERVER['REQUEST_METHOD']]['path']. '_' . $_SERVER['REQUEST_METHOD'];
-     
+        $path = $_SERVER['REQUEST_URI'] . '_' .$_SERVER['REQUEST_METHOD'];
+        
+        $path = ltrim($path, '/');
+
         $route =  $this->routes[$path];
 
         if (!$route) {
@@ -33,7 +35,6 @@ abstract class AbstractRouter
         $controllerClass = $this->routes[$path]['controller'];
         $methodName = $this->routes[$path]['method'];
 
-        //$controller = new $controllerClass;
         $controller = $this->container->get($controllerClass);
         $controller->$methodName();
     }
@@ -41,6 +42,11 @@ abstract class AbstractRouter
     protected function get(string $path, string $controller, string $method)
     {
         $this->routes[$path . '_GET'] = compact('controller', 'method');
+    }
+
+    protected function post(string $path, string $controller, string $method)
+    {
+        $this->routes[$path . '_POST'] = compact('controller', 'method');
     }
 
     protected abstract function getRoutes();

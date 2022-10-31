@@ -5,3 +5,4 @@
 */.phpunit.result.cache
 
 src/logs/*.log
+.idea/
