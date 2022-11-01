@@ -4,6 +4,7 @@ namespace MyApp\User\Infrastructure;
 
 use MyApp\User\Domain\Contracts\UserRepositoryContract;
 use MyApp\User\Domain\User;
+use MyApp\User\Domain\UserDto;
 
 class UserRepository implements UserRepositoryContract
 {
@@ -26,7 +27,7 @@ class UserRepository implements UserRepositoryContract
         return $result->fetch_assoc();
     }
 
-    public function create(User $user): User
+    public function create(User $user): UserDto
     {
         // Create connection
         $conn = new \mysqli($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PWD'], $_ENV['DB_NAME']);
@@ -35,11 +36,20 @@ class UserRepository implements UserRepositoryContract
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $sql = "INSERT INTO users (first_name, last_name, email) VALUES ('$user->getFirstName', '$user->getLastName', '$user->getEmail')";
+        $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES ('" . $user->getFirstName() . "', '" . $user->getLastName() . "', '" . $user->getEmail() . "', '" . $user->getPassword() . "')";
 
         $result = $conn->query($sql);
+        if ($result === false) {
+            throw new \RuntimeException("Can't create user: " . $conn->error);
+        }
         $conn->close();
 
-        return $user;
+        return new UserDto(
+            $user->getFirstName(),
+            $user->getLastName(),
+            $user->getEmail(),
+            $user->getAddress(),
+            $user->getPassword()
+        );
     }
 }

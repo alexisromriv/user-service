@@ -4,6 +4,7 @@ namespace MyApp\User\Application;
 
 use MyApp\User\Domain\Contracts\UserRepositoryContract;
 use MyApp\User\Domain\User;
+use MyApp\User\Domain\UserDto;
 
 class UserCreator
 {
@@ -13,13 +14,14 @@ class UserCreator
         $this->repository = $repository;
     }
 
-    public function create(array $data): User
+    public function create(array $data): UserDto
     {
         $user = new User(
             $data['firstName'],
             $data['lastName'],
             $data['email'],
-            $data['address']
+            $data['address'],
+            $data['password']
         );
         return $this->repository->create($user);
     }

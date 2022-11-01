@@ -5,8 +5,8 @@ CREATE TABLE `users` (
     `email` VARCHAR(254) NOT NULL,
     `password` VARCHAR(45) NOT NULL,
     `last_access_at` TIMESTAMP,
-    `created_at` TIMESTAMP NOT NULL,
-    `updated_at` TIMESTAMP,
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` TIMESTAMP DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     `deleted_at` TIMESTAMP,
     CONSTRAINT `users_pk` PRIMARY KEY (`id`)
 );

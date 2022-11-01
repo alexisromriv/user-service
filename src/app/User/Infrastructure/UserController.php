@@ -37,6 +37,10 @@ class UserController extends BaseController
     {
         $this->logger->log('Create user');
         $result = $this->userCreator->create($this->getBody());
-        die(var_dump($result));
+        
+        http_response_code(200);
+        header('Content-Type: application/json; charset=utf-8');
+        die(var_dump(json_encode($result)));
+        echo json_encode($result);
     }
 }

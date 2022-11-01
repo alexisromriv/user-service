@@ -1,6 +1,6 @@
 <?php 
 
-namespace MyApp\User\Domain; 
+namespace MyApp\User\Domain;
 
 class User
 {
@@ -8,13 +8,15 @@ class User
     private $lastName;
     private $email;
     private $address;
+    private $password;
 
-    public function __construct($firstName, $lastName, $email, $address)
+    public function __construct($firstName, $lastName, $email, $address, $password)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->email = $email;
         $this->address = $address;
+        $this->password = $password;
     }
 
     public function getFirstName()
@@ -35,5 +37,10 @@ class User
     public function getAddress()
     {
         return $this->address;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
     }
 }
