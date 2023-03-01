@@ -7,7 +7,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     libzip-dev \
     unzip
 
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli && docker-php-ext-install zip  && a2enmod rewrite
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli && docker-php-ext-install zip  && a2enmod rewrite && docker-php-ext-install sockets
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
