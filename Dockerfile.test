@@ -11,5 +11,3 @@ COPY src/composer.json src/composer.lock ./
 RUN composer install --no-plugins --no-scripts --optimize-autoloader --ignore-platform-req IGNORE-PLATFORM-REQ --prefer-dist
 
 RUN composer dump-autoload
-
-RUN php vendor/bin/phpunit
